@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where's The Bar</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.js"></script>
+</head>
+<body>
+    
+    <header>
+        <div class="logo space"> 
+            <h1><a href="./index.html">Need a Beer?</a></h1>
+        </div>
+        <nav class="nav space">
+            <div>
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/about.html">About</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flow">
+        <section>
+            <h2>Find A Brewery</h2>
+            <form class="search-form">
+                <input type="text" class="search-bar" placeholder="Enter a brewery" id="search-name">
+                <input type="text" class="search-bar" placeholder="Enter a city" id="search-city">
+                <button class="search-btn" id="search-btn">Search</button>
+            </form>
+        </section>
+
+        <aside>
+            <div class="container">
+                <div class="search-results">
+                    <div class="bar-info hidden">
+                    </div>
+                </div>
+                <div id="map">
+                    <div id='map' style='width: 800px; height: 400px;'></div>
+                </div>
+            </div>
+        </aside>
+
+        <aside>
+            <div class="saved"></div>
+        </aside>
+    </main>
+
+    <script src="./script.js"></script>
+    <script>
+        
+        mapboxgl.accessToken = 'pk.eyJ1IjoidG9waGVyZHJlYXkiLCJhIjoiY201ZnptYTRkMDMwdjJscTE1ZHN4YzBoNSJ9.DkydkgxMIMzwJbeaKk4JRw';
+        let map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/mapbox/streets-v11', // style URL
+            center: [-98.5795, 39.8283], // starting position [lng, lat]
+            zoom: 3 // starting zoom
+        });
+    </script>
+
+
+</body>
+</html>
