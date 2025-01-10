@@ -6,6 +6,9 @@
     <title>Where's The Bar</title>
     <link rel="stylesheet" href="./style.css">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.js"></script>
 </head>
 <body>
@@ -30,7 +33,9 @@
             <form class="search-form">
                 <input type="text" class="search-bar" placeholder="Enter a brewery" id="search-name">
                 <input type="text" class="search-bar" placeholder="Enter a city" id="search-city">
-                <button class="search-btn" id="search-btn">Search</button>
+                <button id="search-btn">
+                    <span class="search-btn">Search</span>
+                </button>
             </form>
         </section>
 

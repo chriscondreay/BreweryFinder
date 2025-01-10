@@ -34,20 +34,28 @@ function getBreweryAPI(name) {
                 let cardEl = document.createElement('div');
                 cardEl.classList.add('card');
                 
-                let barName = document.createElement('h3');
-                let barAddress = document.createElement('p');
-                let barCity = document.createElement('p');
-                let barPhone = document.createElement('p');
+                let barName = document.createElement('span');
+                let barAddress = document.createElement('span');
+                let barPhone = document.createElement('span');
                 let barWebsite = document.createElement('a');
                 let saveButton = document.createElement('button');
 
                 barName.textContent = data[i].name;
                 barAddress.textContent = `${data[i].street}, ${data[i].city}, ${getStateAbbreviation(data[i].state)}`;
-                barPhone.innerHTML = `<a href="tel:${data[i].phone}">${data[i].phone + '-'}</a>`;
+
+                const formatPhoneNumber = (phoneNumber) => {
+                    if (!phoneNumber) return '';
+                    const cleaned = phoneNumber.replace(/\D/g, '');
+                    if (cleaned.length === 10) {
+                        return `${cleaned.slice(0,3)}-${cleaned.slice(3,6)}-${cleaned.slice(6)}`;
+                    }
+                    return phoneNumber;
+                };
+
+                barPhone.innerHTML = `<a href="tel:${data[i].phone}">${formatPhoneNumber(data[i].phone)}</a>`;
 
                 barWebsite.textContent = data[i].website_url;
-                barWebsite.href = data[i].website_url;
-                barWebsite.target = '_blank';
+                barWebsite.innerHTML = `<a href="${data[i].website_url}" target="_blank">${data[i].website_url}</a>`;
 
                 saveButton.textContent = 'Save';
 
@@ -80,19 +88,30 @@ function getCityAPI(city) {
                 let cardEl = document.createElement('div');
                 cardEl.classList.add('card');
                 
-                let barName = document.createElement('h3');
-                let barAddress = document.createElement('p');
-                let barPhone = document.createElement('p');
-                let barWebsite = document.createElement('a');
+                let barName = document.createElement('span');
+                barName.classList.add('bar-name');
+                let barAddress = document.createElement('span');
+                let barPhone = document.createElement('span');
+                let barWebsite = document.createElement('span');
                 let saveButton = document.createElement('button');
 
                 barName.textContent = data[i].name;
                 barAddress.textContent = `${data[i].street}, ${data[i].city}, ${getStateAbbreviation(data[i].state)}`;
-                barPhone.innerHTML = `<a href="tel:${data[i].phone}">${data[i].phone}</a>`;
+                
+                // Format phone number with dashes
+                const formatPhoneNumber = (phoneNumber) => {
+                    if (!phoneNumber) return '';
+                    const cleaned = phoneNumber.replace(/\D/g, '');
+                    if (cleaned.length === 10) {
+                        return `${cleaned.slice(0,3)}-${cleaned.slice(3,6)}-${cleaned.slice(6)}`;
+                    }
+                    return phoneNumber;
+                };
+                
+                barPhone.innerHTML = `<a href="tel:${data[i].phone}">${formatPhoneNumber(data[i].phone)}</a>`;
 
                 barWebsite.textContent = data[i].website_url;
-                barWebsite.href = data[i].website_url;
-                barWebsite.target = '_blank';
+                barWebsite.innerHTML = `<a href="${data[i].website_url}" target="_blank">${data[i].website_url}</a>`;
 
                 saveButton.textContent = 'Save';
 

@@ -1,7 +1,7 @@
 :root {
     --gunmetal: #22333B;
     --almond: #EAE0D5;
-    --secondary-color: #493F30;
+    --walnut-brown: #5E503F;
     --scroll-area-color: #B89C46;
     --save-color: #4E5840;
 }
@@ -13,7 +13,7 @@
 }
 
 html {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: "Work Sans", serif;
 }
 
 body {
@@ -41,6 +41,12 @@ a {
     color: var(--almond);
 }
 
+.logo a {
+    font-size: 3rem;
+    font-weight: 200;
+    letter-spacing: 1px;
+}
+
 ul {
     display: flex;
     justify-content: center;
@@ -48,11 +54,12 @@ ul {
 
 ul li {
     list-style-type: none;
-    padding: 0 10cd px;
+    padding: 0 10px;
 }
 
 ul li a {
     font-size: 1rem;
+    font-weight: 500;
     padding: 5px 10px;
     transition: all 0.5s;
     border-radius: 5px;
@@ -84,10 +91,64 @@ nav.space {
     padding-bottom: 15px;
 }
 
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 10px 0;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+}
+
+input {
+    padding: 9px;
+    font-size: 17px;
+    border: 1px solid var(--walnut-brown);
+    border-radius: 4px;
+}
+
+button {
+    display: inline-block;
+    border-radius: 4px;
+    background: #22333b;
+    border: none;
+    color: var(--almond);
+    text-align: center;
+    font-size: 17px;
+    padding: 10px;
+    width: 150px;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+button .search-btn {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+button .search-btn:after {
+    content: "🍺";
+    font-size: 15px;
+    position: absolute;
+    opacity: 0;
+    top: -2px;
+    right: -35px;
+    transition: 0.5s;
+}
+
+button:hover .search-btn {
+    padding-right: 30px;
+    padding-left: 5px;
+}
+
+button:hover .search-btn:after {
+    opacity: 1;
+    right: 0;
 }
 
 .search-results {
@@ -124,3 +185,19 @@ nav.space {
 .card:nth-child(odd) {
     background-color: #fffcf3;
 }
+
+div > span {
+    display: block;
+    padding-bottom: 10px;
+}
+
+span.bar-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+}
+
+span a {
+    color: #000;
+}
+
