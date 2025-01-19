@@ -93,7 +93,12 @@ function getCityAPI(city) {
                 let barAddress = document.createElement('span');
                 let barPhone = document.createElement('span');
                 let barWebsite = document.createElement('span');
+
                 let saveButton = document.createElement('button');
+                let saveButtonSpan = document.createElement('span');
+                saveButtonSpan.classList.add('save-btn');
+                saveButtonSpan.textContent = 'Save';
+                saveButton.appendChild(saveButtonSpan);
 
                 barName.textContent = data[i].name;
                 barAddress.textContent = `${data[i].street}, ${data[i].city}, ${getStateAbbreviation(data[i].state)}`;
@@ -113,12 +118,11 @@ function getCityAPI(city) {
                 barWebsite.textContent = data[i].website_url;
                 barWebsite.innerHTML = `<a href="${data[i].website_url}" target="_blank">${data[i].website_url}</a>`;
 
-                saveButton.textContent = 'Save';
-
                 cardEl.appendChild(barName);
                 cardEl.appendChild(barAddress);
                 cardEl.appendChild(barPhone);
                 cardEl.appendChild(barWebsite);
+                cardEl.appendChild(saveButton);
                 
                 barInfoEl.appendChild(cardEl);
 
@@ -161,10 +165,14 @@ searchButton.addEventListener('click', function(e) {
     if (name && city) {
         getBreweryAPI(name);
         getCityAPI(city);
+        searchName.value = '';
+        searchCity.value = '';
     } else if (name) {
         getBreweryAPI(name);
+        searchName.value = '';
     } else if (city) {
         getCityAPI(city);
+        searchCity.value = '';
     } else {
         alert('Please enter a name or city to search.');
     }
