@@ -24,7 +24,7 @@ Here's how to get started. Click the url link above or clone the repository and 
 
 ![Map](./images/map.png)
 
-<video src="./images/demo.mp4">
+<video src="./images/demo.mp4" width="540" autoplay></video>
 
 ## Coming Soon
 Coming Soon - Drink Saver
