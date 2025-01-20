@@ -35,14 +35,15 @@ function getBreweryAPI(name) {
                 cardEl.classList.add('card');
                 
                 let barName = document.createElement('span');
+                barName.classList.add('bar-name');
                 let barAddress = document.createElement('span');
                 let barPhone = document.createElement('span');
-                let barWebsite = document.createElement('a');
-                let saveButton = document.createElement('button');
+                let barWebsite = document.createElement('span');
 
                 barName.textContent = data[i].name;
                 barAddress.textContent = `${data[i].street}, ${data[i].city}, ${getStateAbbreviation(data[i].state)}`;
-
+                
+                // Format phone number with dashes
                 const formatPhoneNumber = (phoneNumber) => {
                     if (!phoneNumber) return '';
                     const cleaned = phoneNumber.replace(/\D/g, '');
@@ -51,13 +52,11 @@ function getBreweryAPI(name) {
                     }
                     return phoneNumber;
                 };
-
+                
                 barPhone.innerHTML = `<a href="tel:${data[i].phone}">${formatPhoneNumber(data[i].phone)}</a>`;
 
                 barWebsite.textContent = data[i].website_url;
                 barWebsite.innerHTML = `<a href="${data[i].website_url}" target="_blank">${data[i].website_url}</a>`;
-
-                saveButton.textContent = 'Save';
 
                 cardEl.appendChild(barName);
                 cardEl.appendChild(barAddress);
@@ -94,11 +93,11 @@ function getCityAPI(city) {
                 let barPhone = document.createElement('span');
                 let barWebsite = document.createElement('span');
 
-                let saveButton = document.createElement('button');
-                let saveButtonSpan = document.createElement('span');
-                saveButtonSpan.classList.add('save-btn');
-                saveButtonSpan.textContent = 'Save';
-                saveButton.appendChild(saveButtonSpan);
+                // let saveButton = document.createElement('button');
+                // let saveButtonSpan = document.createElement('span');
+                // saveButtonSpan.classList.add('save-btn');
+                // saveButtonSpan.textContent = 'Save';
+                // saveButton.appendChild(saveButtonSpan);
 
                 barName.textContent = data[i].name;
                 barAddress.textContent = `${data[i].street}, ${data[i].city}, ${getStateAbbreviation(data[i].state)}`;
@@ -122,7 +121,7 @@ function getCityAPI(city) {
                 cardEl.appendChild(barAddress);
                 cardEl.appendChild(barPhone);
                 cardEl.appendChild(barWebsite);
-                cardEl.appendChild(saveButton);
+                // cardEl.appendChild(saveButton);
                 
                 barInfoEl.appendChild(cardEl);
 
