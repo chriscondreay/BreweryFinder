@@ -70,16 +70,12 @@ ul li a:hover {
     color: var(--gunmetal);
 }
 
-/* .flow {
-    width: 100%;
-    padding: 0 10px;
-} */
-
 #map {
-    position: relative;
+    position: absolute;
     width: 100%;
-    height: 50%;
-    float: none;
+    height: 44%;
+    bottom: 0;
+    z-index: 1;
 }
 
 .space {
@@ -102,9 +98,10 @@ h2 {
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-rows: auto 400px;
+    position: relative;
+    height: calc(110vh - 200px);
 }
 
 input {
@@ -156,9 +153,10 @@ button:hover .search-btn:after {
 }
 
 .search-results {
+    grid-row: 1;
     flex-grow: 1;
     overflow: auto;
-    height: 52.3vh;
+    height: 48.3vh;
     margin-bottom: 20px;
     border-radius: 3px;
 }
@@ -203,6 +201,9 @@ span.bar-name {
 
 span a {
     color: #000;
+}
+div > span:nth-last-child(1) {
+    padding-bottom: 0;
 }
 
 div > button .save-btn::after {

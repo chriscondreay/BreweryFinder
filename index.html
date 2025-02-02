@@ -20,8 +20,8 @@
         <nav class="nav space">
             <div>
                 <ul>
-                    <li><a href="/index.html">Home</a></li>
-                    <li><a href="/about.html">About</a></li>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./about.html">About</a></li>
                 </ul>
             </div>
         </nav>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div id="map">
-                    <div id='map' style='width: 800px; height: 400px;'></div>
+                    <div id='map' style=' width: 0px; height: 400px;'></div>
                 </div>
             </div>
         </aside>
@@ -58,14 +58,15 @@
 
     <script src="./script.js"></script>
     <script>
-        
         mapboxgl.accessToken = 'pk.eyJ1IjoidG9waGVyZHJlYXkiLCJhIjoiY201ZnptYTRkMDMwdjJscTE1ZHN4YzBoNSJ9.DkydkgxMIMzwJbeaKk4JRw';
-        let map = new mapboxgl.Map({
+        const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v11', // style URL
             center: [-98.5795, 39.8283], // starting position [lng, lat]
-            zoom: 3 // starting zoom
+            zoom: 4, // starting zoom
         });
+
+        map.scrollZoom.setWheelZoomRate(1 / 200);
     </script>
 
 
