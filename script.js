@@ -19,6 +19,33 @@ function getStateAbbreviation(state) {
     return states[state] || state;
 }
 
+function centerMapResults(data) {
+    if (data.length === 0) return;
+
+    let totalLat = 0;
+    let totalLng = 0;
+    let validCoords = 0;
+
+    data.forEach(brewery => {
+        if (brewery.latitude && brewery.longitude) {
+            totalLat += brewery.latitude;
+            totalLng += brewery.longitude;
+            validCoords++;
+        }
+    });
+    
+    if (validCoords === 0) {
+        const centerLat = totalLat / validCoords;
+        const centerLng = totalLng / validCoords;
+
+        map.flyTo({
+            center: [centerLng, centerLat],
+            zoom: 10,
+            essential: true
+        })
+    }
+}
+
 function getBreweryAPI(name) {
     let requestUrl = `https://api.openbrewerydb.org/breweries?by_name=${name}`;
 
@@ -68,6 +95,8 @@ function getBreweryAPI(name) {
                 if (data[i].longitude && data[i].latitude) {
                     addMarker(data[i].longitude, data[i].latitude, data[i].name, data[i].street, data[i].city, data[i].state, data[i].phone, data[i].website_url);
                 }
+
+                centerMapResults(data);
             }
         });
 }
@@ -128,6 +157,8 @@ function getCityAPI(city) {
                 if (data[i].longitude && data[i].latitude) {
                     addMarker(data[i].longitude, data[i].latitude, data[i].name, data[i].street, data[i].city, data[i].state, data[i].phone, data[i].website_url);
                 }
+
+                centerMapResults(data);
             }
         });
 }

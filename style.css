@@ -72,9 +72,9 @@ ul li a:hover {
 
 #map {
     position: absolute;
+    grid-column: 2;
     width: 100%;
-    height: 44%;
-    bottom: 0;
+    height: 100%;
     z-index: 1;
 }
 
@@ -99,9 +99,10 @@ h2 {
 
 .container {
     display: grid;
-    grid-template-rows: auto 400px;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     position: relative;
-    height: calc(110vh - 200px);
+    height: 70vh;
 }
 
 input {
@@ -153,10 +154,9 @@ button:hover .search-btn:after {
 }
 
 .search-results {
-    grid-row: 1;
-    flex-grow: 1;
+    grid-column: 1;
     overflow: auto;
-    height: 48.3vh;
+    height: 100%;
     margin-bottom: 20px;
     border-radius: 3px;
 }
