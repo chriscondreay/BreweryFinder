@@ -159,6 +159,8 @@ button:hover .search-btn:after {
     height: 100%;
     margin-bottom: 20px;
     border-radius: 3px;
+    word-wrap: break-word;
+    overflow-x: hidden;
 }
 
 .search-results::-webkit-scrollbar-track {
@@ -251,4 +253,8 @@ div > button:hover .save-btn:after {
         grid-column: 1;
         height: 35vh;
     }
+
+    input {
+        margin: 4px 0;
+    }   
 }
