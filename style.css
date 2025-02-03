@@ -232,3 +232,23 @@ div > button:hover .save-btn:after {
     opacity: 1;
     right: 0;
 }
+
+@media screen and (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        height: 90vh;
+    }
+
+    .search-results {
+        grid-row: 1;
+        grid-column: 1;
+        height: 50vh;
+    }
+
+    #map {
+        grid-row: 2;
+        grid-column: 1;
+        height: 35vh;
+    }
+}
