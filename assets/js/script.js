@@ -52,6 +52,9 @@ function getBreweryAPI(name) {
 
     fetch(requestUrl)
         .then(function(response) {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             return response.json();
         })
         .then(function(data) {
@@ -99,6 +102,10 @@ function getBreweryAPI(name) {
 
                 centerMapResults(data);
             }
+        })
+        .catch(function(error) {
+            console.error('Error fetching data:', error);
+            barInfoEl.textContent = 'No results found. Please try again.';
         });
 }
 
@@ -107,6 +114,9 @@ function getCityAPI(city) {
 
     fetch(requestUrl)
         .then(function(response) {
+            if (!response.ok) {
+                throw new Error(`HTTP error status: ${response.status}`)
+            }
             return response.json();
         })
         .then(function(data) {
@@ -161,7 +171,11 @@ function getCityAPI(city) {
 
                 centerMapResults(data);
             }
-        });
+        })
+        .catch(function(error) {
+            console.error('Error fetching data: ', error);
+            barInfoEl.textContent = 'No results found.';
+        })
 }
 
 function addMarker(lng, lat, name, street, city, state, phone, website) {
