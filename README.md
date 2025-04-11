@@ -28,13 +28,13 @@ Ever wonder what it would be like to find where the breweries are in the palm of
 Here's how to get started. Click the url link above OR clone the repository and run **index.html**. To get started, just simply search the name of a city that you reside in or are visiting into the search bar. Optionally, if you know the name of the brewery already you can enter the name and search this way. You can then click search and a list of breweries with the map location and basic information will show on the page.
 
 ## Screenshots/Demo
-![Homepage](./images/homepage.png)
+![Demo video](./assets/images/demo.gif)
 
-![Search Results](./images/search.png)
+![Homepage](./assets/images/homepage.png)
 
-![Map](./images/map.png)
+![Search Results](./assets/images/search.png)
 
-![Demo video](./images/demo.gif)
+![Map](./assets/images/map.png)
 
 ## Coming Soon
 Coming Soon - Drink Saver

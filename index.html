@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Where's The Bar</title>
     <link rel="stylesheet" href="./assets/css/style.css">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.9.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.11.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.11.0/mapbox-gl.js"></script>
 </head>
 <body>
     
@@ -58,12 +58,12 @@
 
     <script src="./assets/js/script.js"></script>
     <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoidG9waGVyZHJlYXkiLCJhIjoiY201ZnptYTRkMDMwdjJscTE1ZHN4YzBoNSJ9.DkydkgxMIMzwJbeaKk4JRw';
+        mapboxgl.accessToken = 'pk.eyJ1IjoidG9waGVyZHJlYXkiLCJhIjoiY205YzFzMGs3MDAwODJrb2J5cG41ZDRxdCJ9.a1f0dveNoWEM1_uOpX9WOg';
         const map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/streets-v11', // style URL
             center: [-98.5795, 39.8283], // starting position [lng, lat]
-            zoom: 4, // starting zoom
+            zoom: 2, // starting zoom
         });
 
         map.scrollZoom.setWheelZoomRate(1 / 200);

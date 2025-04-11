@@ -34,20 +34,21 @@ function centerMapResults(data) {
         }
     });
     
-    if (validCoords === 0) {
+    if (validCoords > 0) {
         const centerLat = totalLat / validCoords;
         const centerLng = totalLng / validCoords;
 
         map.flyTo({
             center: [centerLng, centerLat],
-            zoom: 10,
-            essential: true
+            zoom: 9,
+            essential: true,
+            duration: 2000
         })
     }
 }
 
 function getBreweryAPI(name) {
-    let requestUrl = `https://api.openbrewerydb.org/breweries?by_name=${name}`;
+    let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_name=${name}`;
 
     fetch(requestUrl)
         .then(function(response) {
@@ -102,7 +103,7 @@ function getBreweryAPI(name) {
 }
 
 function getCityAPI(city) {
-    let requestUrl = `https://api.openbrewerydb.org/breweries?by_city=${city}`;
+    let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${city}`;
 
     fetch(requestUrl)
         .then(function(response) {
