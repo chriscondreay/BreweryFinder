@@ -19,6 +19,15 @@ function getStateAbbreviation(state) {
     return states[state] || state;
 }
 
+const formatPhoneNumber = (phoneNumber) => {
+    if (!phoneNumber) return '';
+    const cleaned = phoneNumber.replace(/\D/g, '');
+    if (cleaned.length === 10) {
+        return `${cleaned.slice(0,3)}-${cleaned.slice(3,6)}-${cleaned.slice(6)}`;
+    }
+    return phoneNumber;
+};
+
 function centerMapResults(data) {
     if (data.length === 0) return;
 
@@ -92,14 +101,7 @@ function getBreweryAPI(name) {
                 address += `${data[i].city}, ${getStateAbbreviation(data[i].state)}`;
                 barAddress.textContent = address;
                 
-                const formatPhoneNumber = (phoneNumber) => {
-                    if (!phoneNumber) return '';
-                    const cleaned = phoneNumber.replace(/\D/g, '');
-                    if (cleaned.length === 10) {
-                        return `${cleaned.slice(0,3)}-${cleaned.slice(3,6)}-${cleaned.slice(6)}`;
-                    }
-                    return phoneNumber;
-                };
+                formatPhoneNumber(data[i].phone);
                 
                 barPhone.innerHTML = `<a href="tel:${data[i].phone}">${formatPhoneNumber(data[i].phone)}</a>`;
 
@@ -171,14 +173,7 @@ function getCityAPI(city) {
                 address += `${data[i].city}, ${getStateAbbreviation(data[i].state)}`;
                 barAddress.textContent = address;
                 
-                const formatPhoneNumber = (phoneNumber) => {
-                    if (!phoneNumber) return '';
-                    const cleaned = phoneNumber.replace(/\D/g, '');
-                    if (cleaned.length === 10) {
-                        return `${cleaned.slice(0,3)}-${cleaned.slice(3,6)}-${cleaned.slice(6)}`;
-                    }
-                    return phoneNumber;
-                };
+                formatPhoneNumber(data[i].phone);
                 
                 barPhone.innerHTML = `<a href="tel:${data[i].phone}">${formatPhoneNumber(data[i].phone)}</a>`;
 
@@ -233,8 +228,8 @@ function addMarker(lng, lat, name, street, city, state, phone, website) {
         .setPopup(new mapboxgl.Popup().setHTML(`
             <h3>${name}</h3>
             <p>${street}, ${city}, ${getStateAbbreviation(state)}</p>
-            <p>${phone}</p>
-            <a>${website}</a>
+            <p>${formatPhoneNumber(phone)}</p>
+            <a href=${website} target=_blank>${website}</a>
         `))
         .addTo(map);
 }

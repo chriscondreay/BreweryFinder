@@ -112,7 +112,7 @@ input {
     border-radius: 4px;
 }
 
-button {
+form > button {
     display: inline-block;
     border-radius: 4px;
     background: #22333b;
@@ -126,14 +126,14 @@ button {
     cursor: pointer;
 }
 
-button .search-btn {
+form > button .search-btn {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
 }
 
-button .search-btn:after {
+form > button .search-btn:after {
     content: "🍺";
     font-size: 15px;
     position: absolute;
@@ -143,12 +143,12 @@ button .search-btn:after {
     transition: 0.5s;
 }
 
-button:hover .search-btn {
+form > button:hover .search-btn {
     padding-right: 30px;
     padding-left: 5px;
 }
 
-button:hover .search-btn:after {
+form > button:hover .search-btn:after {
     opacity: 1;
     right: 0;
 }
@@ -257,4 +257,26 @@ div > button:hover .save-btn:after {
     input {
         margin: 4px 0;
     }   
+}
+
+/* Mapbox close button */
+.mapboxgl-popup-close-button {
+    width: 35px;
+    padding: 8px;
+    color: var(--gunmetal);
+    border-radius: 35px;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    -ms-border-radius: 35px;
+    -o-border-radius: 35px;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+}
+
+/* Mapbox popup */
+.mapboxgl-popup-content {
+    width: 18vw;
 }
