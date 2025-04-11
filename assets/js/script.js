@@ -28,8 +28,8 @@ function centerMapResults(data) {
 
     data.forEach(brewery => {
         if (brewery.latitude && brewery.longitude) {
-            totalLat += parseFloat(brewery.latitude);
-            totalLng += parseFloat(brewery.longitude);
+            totalLat += brewery.latitude;
+            totalLng += brewery.longitude;
             validCoords++;
         }
     });
@@ -43,40 +43,33 @@ function centerMapResults(data) {
             zoom: 9,
             essential: true,
             duration: 2000
-        });
+        })
     }
 }
 
 function getBreweryAPI(name) {
-    // Encode the search parameter to handle spaces and special characters
-    let encodedName = encodeURIComponent(name);
-    let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_name=${encodedName}`;
-    
-    barInfoEl.innerHTML = '<p>Loading results...</p>';
-    barInfoEl.classList.remove('hidden');
+    const encodedURI = encodeURIComponent(name);
+    let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_name=${encodedURI}`;
 
     fetch(requestUrl)
         .then(function(response) {
-            // First check if the response is ok
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
-            // Check the content type to ensure we're getting JSON
+
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
                 throw new Error('Response is not JSON');
             }
-            
+
             return response.json();
         })
         .then(function(data) {
-            console.log(data);
             barInfoEl.textContent = '';
-            
+
             if (data.length === 0) {
-                barInfoEl.innerHTML = '<p>No breweries found with that name. Please try another search.</p>';
-                return;
+                barInfoEl.textContent = '<p>No results found.</p>';
+                return
             }
             
             for (let i = 0; i < data.length; i++) {
@@ -90,16 +83,15 @@ function getBreweryAPI(name) {
                 let barWebsite = document.createElement('span');
 
                 barName.textContent = data[i].name;
-                
-                // Check if street exists before adding it
+
                 let address = '';
                 if (data[i].street) {
-                    address = `${data[i].street}, `;
+                    address =  `${data[i].street}, `;
                 }
+
                 address += `${data[i].city}, ${getStateAbbreviation(data[i].state)}`;
                 barAddress.textContent = address;
                 
-                // Format phone number with dashes
                 const formatPhoneNumber = (phoneNumber) => {
                     if (!phoneNumber) return '';
                     const cleaned = phoneNumber.replace(/\D/g, '');
@@ -109,17 +101,10 @@ function getBreweryAPI(name) {
                     return phoneNumber;
                 };
                 
-                if (data[i].phone) {
-                    barPhone.innerHTML = `<a href="tel:${data[i].phone}">${formatPhoneNumber(data[i].phone)}</a>`;
-                } else {
-                    barPhone.textContent = 'No phone available';
-                }
+                barPhone.innerHTML = `<a href="tel:${data[i].phone}">${formatPhoneNumber(data[i].phone)}</a>`;
 
-                if (data[i].website_url) {
-                    barWebsite.innerHTML = `<a href="${data[i].website_url}" target="_blank">${data[i].website_url}</a>`;
-                } else {
-                    barWebsite.textContent = 'No website available';
-                }
+                barWebsite.textContent = data[i].website_url;
+                barWebsite.innerHTML = `<a href="${data[i].website_url}" target="_blank">${data[i].website_url}</a>`;
 
                 cardEl.appendChild(barName);
                 cardEl.appendChild(barAddress);
@@ -131,46 +116,39 @@ function getBreweryAPI(name) {
                 if (data[i].longitude && data[i].latitude) {
                     addMarker(data[i].longitude, data[i].latitude, data[i].name, data[i].street, data[i].city, data[i].state, data[i].phone, data[i].website_url);
                 }
+
+                centerMapResults(data);
             }
-            
-            centerMapResults(data);
         })
-        .catch(function(error) {
+        .catch((error) => {
             console.error('Error fetching data:', error);
-            barInfoEl.innerHTML = `<p>Error finding breweries: ${error.message}. Please try again.</p>`;
+            barInfoEl.innerHTML = `<p>No results found. Error finding breweries: ${error.message}</p>`;
         });
 }
 
 function getCityAPI(city) {
-    // Encode the search parameter to handle spaces and special characters
-    let encodedCity = encodeURIComponent(city);
-    let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${encodedCity}`;
-    
-    barInfoEl.innerHTML = '<p>Loading results...</p>';
-    barInfoEl.classList.remove('hidden');
+    const encodedURI = encodeURIComponent(city);
+    let requestUrl = `https://api.openbrewerydb.org/v1/breweries?by_city=${encodedURI}`;
 
     fetch(requestUrl)
         .then(function(response) {
-            // First check if the response is ok
             if (!response.ok) {
-                throw new Error(`HTTP error status: ${response.status}`);
+                throw new Error(`HTTP error status: ${response.status}`)
             }
-            
-            // Check the content type to ensure we're getting JSON
+
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
                 throw new Error('Response is not JSON');
             }
-            
+
             return response.json();
         })
         .then(function(data) {
-            console.log(data);
             barInfoEl.textContent = '';
-            
+
             if (data.length === 0) {
-                barInfoEl.innerHTML = '<p>No breweries found in that city. Please try another search.</p>';
-                return;
+                barInfoEl.textContent = '<p>No results found.</p>';
+                return
             }
             
             for (let i = 0; i < data.length; i++) {
@@ -184,16 +162,15 @@ function getCityAPI(city) {
                 let barWebsite = document.createElement('span');
 
                 barName.textContent = data[i].name;
-                
-                // Check if street exists before adding it
+
                 let address = '';
                 if (data[i].street) {
-                    address = `${data[i].street}, `;
+                    address =  `${data[i].street}, `;
                 }
+
                 address += `${data[i].city}, ${getStateAbbreviation(data[i].state)}`;
                 barAddress.textContent = address;
                 
-                // Format phone number with dashes
                 const formatPhoneNumber = (phoneNumber) => {
                     if (!phoneNumber) return '';
                     const cleaned = phoneNumber.replace(/\D/g, '');
@@ -203,17 +180,10 @@ function getCityAPI(city) {
                     return phoneNumber;
                 };
                 
-                if (data[i].phone) {
-                    barPhone.innerHTML = `<a href="tel:${data[i].phone}">${formatPhoneNumber(data[i].phone)}</a>`;
-                } else {
-                    barPhone.textContent = 'No phone available';
-                }
+                barPhone.innerHTML = `<a href="tel:${data[i].phone}">${formatPhoneNumber(data[i].phone)}</a>`;
 
-                if (data[i].website_url) {
-                    barWebsite.innerHTML = `<a href="${data[i].website_url}" target="_blank">${data[i].website_url}</a>`;
-                } else {
-                    barWebsite.textContent = 'No website available';
-                }
+                barWebsite.textContent = data[i].website_url;
+                barWebsite.innerHTML = `<a href="${data[i].website_url}" target="_blank">${data[i].website_url}</a>`;
 
                 cardEl.appendChild(barName);
                 cardEl.appendChild(barAddress);
@@ -225,94 +195,66 @@ function getCityAPI(city) {
                 if (data[i].longitude && data[i].latitude) {
                     addMarker(data[i].longitude, data[i].latitude, data[i].name, data[i].street, data[i].city, data[i].state, data[i].phone, data[i].website_url);
                 }
+
+                centerMapResults(data);
             }
-            
-            centerMapResults(data);
         })
         .catch(function(error) {
             console.error('Error fetching data: ', error);
-            barInfoEl.innerHTML = `<p>Error finding breweries: ${error.message}. Please try again.</p>`;
-        });
+            barInfoEl.innerHTML = `<p>No results found. Error finding breweries: ${error.message}</p>`;
+        })
 }
 
 function addMarker(lng, lat, name, street, city, state, phone, website) {
-    // Ensure coordinates are numeric
+
     const longitude = parseFloat(lng);
     const latitude = parseFloat(lat);
-    
-    // Only add marker if coordinates are valid numbers
+
     if (!isNaN(longitude) && !isNaN(latitude)) {
-        // Create address string, checking if street exists
         let address = '';
         if (street) {
-            address = `${street}, `;
+            address =  `${street}, `;
         }
         address += `${city}, ${getStateAbbreviation(state)}`;
-        
-        // Format website as a link if it exists
-        let websiteHtml = '';
+
+        let websiteLink = '';
         if (website) {
-            websiteHtml = `<a href="${website}" target="_blank">${website}</a>`;
+            websiteLink = `<a href="${website}" target="_blank">${website}</a>`;
         }
-        
-        // Format phone if it exists
-        let phoneDisplay = '';
+
+        let displayPhone = '';
         if (phone) {
-            phoneDisplay = `<p>${phone}</p>`;
+            displayPhone = `<a href="tel:${phone}">${phone}</a>`;
         }
-        
-        new mapboxgl.Marker()
-            .setLngLat([longitude, latitude])
-            .setPopup(new mapboxgl.Popup().setHTML(`
-                <h3>${name}</h3>
-                <p>${address}</p>
-                ${phoneDisplay}
-                ${websiteHtml}
-            `))
-            .addTo(map);
     }
+
+    new mapboxgl.Marker()
+        .setLngLat([lng, lat])
+        .setPopup(new mapboxgl.Popup().setHTML(`
+            <h3>${name}</h3>
+            <p>${street}, ${city}, ${getStateAbbreviation(state)}</p>
+            <p>${phone}</p>
+            <a>${website}</a>
+        `))
+        .addTo(map);
 }
 
 function getName(e) {
     e.preventDefault();
-    let info = searchName.value.trim();
-    if (info) {
-        getBreweryAPI(info);
-    } else {
-        alert('Please enter a brewery name to search.');
-    }
+    let info = searchName.value;
+    getBreweryAPI(info);
 }
 
 function getCity(e) {
     e.preventDefault();
-    let info = searchCity.value.trim();
-    if (info) {
-        getCityAPI(info);
-    } else {
-        alert('Please enter a city to search.');
-    }
+    let info = searchCity.value;
+    getCityAPI(info);
 }
 
-// Update the event listener to handle the map properly
 searchButton.addEventListener('click', function(e) {
     e.preventDefault();
-    
-    // Clear previous markers from the map
-    const markers = document.querySelectorAll('.mapboxgl-marker');
-    markers.forEach(marker => marker.remove());
-    
-    // Get search values
     let name = searchName.value.trim();
     let city = searchCity.value.trim();
-
-    // Update map display
-    document.getElementById('map').style.width = '100%';
-    document.getElementById('map').style.height = '400px';
-    
-    // Force a resize event on the map to ensure it renders correctly
-    setTimeout(() => {
-        map.resize();
-    }, 100);
 
     if (name && city) {
         getBreweryAPI(name);
@@ -326,9 +268,6 @@ searchButton.addEventListener('click', function(e) {
         getCityAPI(city);
         searchCity.value = '';
     } else {
-        alert('Please enter a brewery name or city to search.');
+        alert('Please enter a name or city to search.');
     }
 });
-
-// Initialize the bar info element to be visible when results are available
-barInfoEl.classList.add('hidden');
